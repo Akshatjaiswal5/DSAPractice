@@ -1,28 +1,20 @@
 class Solution {
 public:
-    string makeGood(string s)
+    string good(string s, int i, int j)
     {
-      int n=s.size();
-      
-      string ans;
-      int i;
-      for(i=0;i<n-1;i++)
-      {
-       if(abs(s[i]-s[i+1])!=32)
-         ans+=s[i];
-       else
-         i++;
-      }
-      if(i!=n)
-        ans+=s[i];
-      
-      if(ans.size()<2) return ans;
-      
-      for(int i=0;i<ans.size()-1;i++)
-      {
-       if(abs(ans[i]-ans[i+1])==32)
-        return makeGood(ans);
-      }
-      return ans;  
+        if(s.length()==j) return s;        
+        if(abs(s[i]-s[j])==32)
+        {
+            
+            if(s.length()==2) return "";
+            else return good(s.substr(0,i)+s.substr(j+1),0,1);
+        }
+        else
+        {
+            return good(s,i+1,j+1);
+        }
+    }
+    string makeGood(string s) {
+     return good(s,0,1);
     }
 };
